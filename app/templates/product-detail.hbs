@@ -1,0 +1,33 @@
+{{#if this.model.product}}
+<main class="product-detail">
+  <img class="product-image" src={{this.model.product.url}} alt="Box for {{this.model.product.name}}" />
+  <div class="product-header">
+    <h2>{{ this.model.product.name }}</h2>
+    <h4 class="product-price">${{ this.model.product.price }}</h4>
+  </div>
+
+  <p>{{ this.model.product.desc }}</p>
+
+  <div class="product-footer-layout">
+    <div>
+      <div class="product-info-layout">
+        <img class="icon" src="/users.svg" alt="number of players icon" />
+        <span>{{ this.model.product.players }} players</span>
+      </div>
+      <div class="product-info-layout">
+        <img class="icon" src="/clock.svg" alt="number of players icon" />
+        <span>
+          {{ this.model.product.gameTimeHours }} {{ this.gameTimeString }}
+        </span>
+      </div>
+      <div class="product-info-layout">
+        <img class="icon" src="/star.svg" alt="number of players icon" />
+        <span>{{ this.model.product.rating }}</span>
+      </div>
+    </div>
+    <button class="product-add-to-bag-btn" type="button" {{on "click" (fn this.cartService.addToCart this.model.product)}}>
+      add to bag
+    </button>
+  </div>
+</main>
+{{/if}}

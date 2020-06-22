@@ -1,0 +1,16 @@
+.checkout-page {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-page img {
+  align-self: center;
+  max-width: 85vw;
+}
+
+.checkout-page h2 {
+  margin-top: 1.5rem;
+  color: var(--colors-success);
+  text-align: center;
+}

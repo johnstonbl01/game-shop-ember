@@ -1,0 +1,53 @@
+<main class="home">
+  <div
+    class={{if this.inputIsFocused 'input-layout focus-border' 'input-layout'}}>
+    <img src="/search.svg" alt="search icon" class="search-icon" />
+    <Input
+      placeholder="Find your game..."
+      @value={{this.searchValue}}
+      @focusIn={{this.onInputFocus}}
+      @focusOut={{this.onInputFocus}}
+      @keyPress={{this.onInputSubmit}}
+      @input={{this.onInputChange}}
+    />
+  </div>
+  <div>
+    <button
+      type="button"
+      {{ on "click" (fn this.onListTypeClick 'popular') }}
+      class={{if this.isPopularListType 'active product-list-selector' 'product-list-selector'}}
+    >
+      popular
+    </button>
+    <button
+      type="button"
+      {{ on "click" (fn this.onListTypeClick 'newest') }}
+      class={{if this.isNewestListType 'active product-list-selector' 'product-list-selector'}}
+    >
+      newest
+    </button>
+  </div>
+  {{#if this.model.shopProducts.length }}
+    {{#each this.model.shopProducts as |product|}}
+      <article class="product-card">
+        <LinkTo @route="product-detail" @model={{product.id}}>
+          <div class="card-content">
+            <div class="box-img-layout">
+              <img src={{product.url}} alt="Box for {{product.name}}" />
+            </div>
+            <div class="product-details">
+              <p class="product-name">{{ product.name }}</p>
+              <div class="product-extra-info-layout">
+                <span class="product-published">{{ product.published }}</span>
+                <span>${{ product.price }}</span>
+              </div>
+            </div>
+          </div>
+        </LinkTo>
+        <div class="add-to-bag-btn" role="button" {{on "click" (fn this.cartService.addToCart product)}}>
+          <img src="/plus-circle.svg" alt="Add this product to your bag" />
+        </div>
+      </article>
+    {{/each}}
+  {{/if}}
+</main>

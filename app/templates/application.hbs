@@ -1,5 +1,40 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
+<div class={{if this.cartService.showCart 'flyout show' 'flyout hide' }}>
+  <header>
+    <h1>cart</h1>
+    <div role="button" {{on "click" (fn this.cartService.setShowCart false)}}>
+      <img src="/x.svg" alt="close cart" />
+    </div>
+  </header>
+  <div class="product-container">
+    {{#each this.cartService.cart as |product|}}
+      <article class="cart-product">
+        <div class="product-layout">
+          <div class="box-img-layout">
+            <img src={{product.url}} alt="Box for {{product.name}}" />
+          </div>
+          <p class="cart-product-name">{{ product.name }}</p>
+        </div>
+
+        <span>${{ product.price }}</span>
+      </article>
+    {{/each}}
+  </div>
+  <div class="total-layout">
+    <h2>Total</h2>
+    <h2>${{ this.cartService.total }}</h2>
+  </div>
+  <div class="checkout-layout">
+    <button type="button" {{on "click" (fn this.onCheckoutClick)}}>checkout</button>
+  </div>
+</div>
+<header>
+  <LinkTo @route="home"><h1>games<span>.</span></h1></LinkTo>
+  <div class="cart-container" role="button" {{ on "click" (fn this.cartService.setShowCart true) }}>
+    {{#if this.cartService.cart.length }}
+    <span class="items-in-cart">{{ this.cartService.cart.length }}</span>
+    {{/if}}
+    <img src="/shopping-bag.svg" alt="shopping bag" />
+  </div>
+</header>
 
 {{outlet}}
